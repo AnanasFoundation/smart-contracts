@@ -17,20 +17,21 @@ contract FlatPricing is PricingStrategy {
   using SafeMath for uint;
 
   /* How many weis one token costs */
-  uint public oneTokenInWei;
+  uint public ethToUsd;
 
-  function FlatPricing(uint _oneTokenInWei) {
-    require(_oneTokenInWei > 0);
-    oneTokenInWei = _oneTokenInWei;
+  function FlatPricing(uint _ethToUsd) {
+    ethToUsd = _ethToUsd;
   }
 
+  function setEthToUsd(uint _ethToUsd) {
+    ethToUsd = _ethToUsd;
+  }
   /**
    * Calculate the current price for buy in amount.
    *
    */
   function calculatePrice(uint value, uint weiRaised, uint tokensSold, address msgSender, uint decimals) public constant returns (uint) {
-    uint multiplier = 10 ** decimals;
-    return value.mul(multiplier).div(oneTokenInWei);
+    uint anaToUsd = 50;
+    return value.mul(ethToUsd).mul(anaToUsd);
   }
-
 }

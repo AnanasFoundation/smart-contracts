@@ -16,14 +16,13 @@ const end = moment().add(30, 'days').toDate().getTime() / 1000;
 const min = 33000000000000000;
 const baseEthCap = 10000000000000000000;
 
-var name = 'Dala';
-var symbol = 'DALA';
+var name = 'Anacoin';
+var symbol = 'ANAT';
 var totalSupply = TOTAL_SUPPLY;
 var decimals = 8;
 
 var cap = 80000000000000000000000;
-var supply = 330000000;
-var weiPerToken = cap / supply;
+var ethToUsd = 300;
 
 contract('AllocatedCrowdsale', function (accounts) {
     let crowdsale;
@@ -32,7 +31,7 @@ contract('AllocatedCrowdsale', function (accounts) {
     let pricing;
     let finalizer;
     beforeEach(function () {
-        return Promise.resolve().then(() => FlatPricing.new(weiPerToken))
+        return Promise.resolve().then(() => FlatPricing.new(ethToUsd))
             .then(_pricing => {
                 pricing = _pricing;
             }).then(() => MultiSigWallet.new([accounts[1], accounts[2]], 2))
