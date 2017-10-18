@@ -22,7 +22,8 @@ var totalSupply = TOTAL_SUPPLY;
 var decimals = 8;
 
 var cap = 80000000000000000000000;
-var ethToUsd = 300;
+var multiplier = 10 ** 8;
+var ethToUsd = 300 * multiplier;
 
 contract('AllocatedCrowdsale', function (accounts) {
     let crowdsale;
