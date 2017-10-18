@@ -136,7 +136,7 @@ contract Crowdsale is Haltable {
   // Base eth cap has been changed
   event BaseEthCapChanged(uint newBaseEthCap);
 
-  function Crowdsale(address _token, PricingStrategy _pricingStrategy, address _multisigWallet, uint _start, uint _end, uint _minimumFundingGoal, uint _baseEthCap) {
+  function Crowdsale(address _token, PricingStrategy _pricingStrategy, address _multisigWallet, uint _start, uint _end, uint _minimumFundingGoal, uint _baseEthCap, uint _setEthToUsd) {
 
     owner = msg.sender;
 
@@ -145,6 +145,8 @@ contract Crowdsale is Haltable {
     token = FractionalERC20(_token);
 
     setPricingStrategy(_pricingStrategy);
+
+    setEthToUsd(_setEthToUsd);
 
     multisigWallet = _multisigWallet;
     if (multisigWallet == 0) {
@@ -482,6 +484,10 @@ contract Crowdsale is Haltable {
     if (!pricingStrategy.isPricingStrategy()) {
       revert();
     }
+  }
+
+  function setEthToUsd(uint ethToUsd) onlyOwner {
+    pricingStrategy.setEthToUsd(ethToUsd);
   }
 
   /**

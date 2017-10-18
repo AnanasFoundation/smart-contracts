@@ -19,10 +19,6 @@ contract FlatPricing is PricingStrategy {
   /* How many weis one token costs */
   uint public ethToUsd;
 
-  function FlatPricing(uint _ethToUsd) {
-    ethToUsd = _ethToUsd;
-  }
-
   function setEthToUsd(uint _ethToUsd) {
     ethToUsd = _ethToUsd;
   }

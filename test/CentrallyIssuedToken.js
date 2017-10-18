@@ -8,8 +8,8 @@ const TOTAL_SUPPLY = 1 * Math.pow(10, 9) * Math.pow(10, 8);
 const CROWDSALE_SUPPLY = 330 * Math.pow(10, 6) * Math.pow(10, 18);
 
 var owner = '0xdf08f82de32b8d460adbe8d72043e3a7e25a3b39';
-var name = 'Dala';
-var symbol = 'DALA';
+var name = 'Anacoin';
+var symbol = 'ANAT';
 var totalSupply = TOTAL_SUPPLY;
 var decimals = 8;
 

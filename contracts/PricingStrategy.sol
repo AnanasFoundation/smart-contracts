@@ -33,6 +33,8 @@ contract PricingStrategy {
     return false;
   }
 
+  function setEthToUsd(uint ethToUsd);
+
   /**
    * When somebody tries to buy tokens for X eth, calculate how many tokens they get.
    *

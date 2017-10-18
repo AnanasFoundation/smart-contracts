@@ -23,7 +23,7 @@ var decimals = 8;
 
 var cap = 80000000000000000000000;
 var multiplier = 10 ** 8;
-var ethToUsd = 300 * multiplier;
+var ethToUsd = 300;
 
 contract('AllocatedCrowdsale', function (accounts) {
     let crowdsale;
@@ -32,7 +32,7 @@ contract('AllocatedCrowdsale', function (accounts) {
     let pricing;
     let finalizer;
     beforeEach(function () {
-        return Promise.resolve().then(() => FlatPricing.new(ethToUsd))
+        return Promise.resolve().then(() => FlatPricing.new())
             .then(_pricing => {
                 pricing = _pricing;
             }).then(() => MultiSigWallet.new([accounts[1], accounts[2]], 2))
@@ -43,7 +43,7 @@ contract('AllocatedCrowdsale', function (accounts) {
                 token = _token;
             }).then(() => token.setTransferAgent(accounts[0], true))
             .then(() => token.setUpgradeMaster(wallet.address))
-            .then(() => AllocatedCrowdsale.new(token.address, pricing.address, wallet.address, start, end, min, accounts[0], baseEthCap))
+            .then(() => AllocatedCrowdsale.new(token.address, pricing.address, wallet.address, start, end, min, accounts[0], baseEthCap, ethToUsd))
             .then(_crowdsale => {
                 crowdsale = _crowdsale;
             }).then(() => DefaultFinalizeAgent.new(token.address, crowdsale.address))
@@ -105,5 +105,26 @@ contract('AllocatedCrowdsale', function (accounts) {
                 var amount = web3.toWei(2, 'ether');
                 return crowdsale.sendTransaction({ from: accounts[1], value: amount });
             }).then(() => assert.fail('should not be allowed')).catch(assertJump);
+    });
+
+    it('should have price of 15000 for 1ETH when ethToUsd is 300', function() {
+        return pricing
+            .calculatePrice(10 ** 8, 0, 0, null, 8)
+            .then(function(value) {
+                return assert.equal(value, 15000, "incorrect price:" + value);
+            });
+    })
+
+
+    it('should have price of 17500 for 1ETH when ethToUsd is 350', function() {
+        return crowdsale
+            .setEthToUsd(350)
+            .then(function() {
+                return pricing
+                    .calculatePrice(10 ** 8, 0, 0, null, 8)
+                    .then(function(value) {
+                        return assert.equal(value, 17500, "incorrect price:" + value);
+                    });
+            });
     });
 });
