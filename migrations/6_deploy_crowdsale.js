@@ -1,6 +1,6 @@
 var CentrallyIssuedToken = artifacts.require('./CentrallyIssuedToken.sol');
 var FlatPricing = artifacts.require('./FlatPricing.sol');
-var MultiSigWalletWithDailyLimit = artifacts.require('./MultiSigWalletWithDailyLimit.sol');
+var MultiSigWallet = artifacts.require('./MultiSigWallet.sol');
 var AllocatedCrowdsale = artifacts.require('./AllocatedCrowdsale.sol');
 
 const moment = require('moment');
@@ -9,7 +9,7 @@ module.exports = function (deployer, network) {
   if (network == 'development') {
     const token = CentrallyIssuedToken.address;
     const pricing = FlatPricing.address;
-    const wallet = MultiSigWalletWithDailyLimit.address;
+    const wallet = MultiSigWallet.address;
     const start = moment.utc('2017-10-15 18:00').toDate().getTime() / 1000;
     const end = moment.utc('2017-10-31 18:00').toDate().getTime() / 1000;
     const min = 0;
@@ -25,7 +25,7 @@ module.exports = function (deployer, network) {
     //address = 0x8e3e2Ae91926146a932acb242Fc8D3041dA97E73
     const token = CentrallyIssuedToken.address;
     const pricing = FlatPricing.address;
-    const wallet = MultiSigWalletWithDailyLimit.address;
+    const wallet = MultiSigWallet.address;
     const start = moment.utc('2017-10-15 18:00').toDate().getTime() / 1000;
     const end = moment.utc('2017-10-31 18:00').toDate().getTime() / 1000;
     const min = 0;
