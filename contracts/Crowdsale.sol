@@ -133,15 +133,11 @@ contract Crowdsale is Haltable {
   // Crowdsale end time has been changed
   event EndsAtChanged(uint newEndsAt);
 
-  // Base eth cap has been changed
-  event BaseEthCapChanged(uint newBaseEthCap);
 
   function Crowdsale(address _token, PricingStrategy _pricingStrategy, address _multisigWallet, uint _start, uint _end, uint _minimumFundingGoal, uint _baseEthCap, uint _setEthToUsd) {
 
     owner = msg.sender;
-
-    baseEthCap = _baseEthCap;
-
+  
     token = FractionalERC20(_token);
 
     setPricingStrategy(_pricingStrategy);
@@ -209,13 +205,6 @@ contract Crowdsale is Haltable {
     }
 
     uint weiAmount = msg.value;
-    //get the eth cap for the time period
-    uint currentEthCap = getCurrentEthCap();
-    if (weiAmount > currentEthCap) {
-      // We don't allow more than the current cap
-      revert();
-    }
-
     // Account presale sales separately, so that they do not count against pricing tranches
     uint tokenAmount = pricingStrategy.calculatePrice(weiAmount, weiRaised - presaleWeiRaised, tokensSold, msg.sender, token.decimals());
 
@@ -232,13 +221,7 @@ contract Crowdsale is Haltable {
     // Update investor
     investedAmountOf[receiver] = investedAmountOf[receiver].add(weiAmount);
 
-    if (investedAmountOf[receiver] > currentEthCap) {
-      //cannot contribute more than dynamic eth cap
-      revert();
-    }
-
     tokenAmountOf[receiver] = tokenAmountOf[receiver].add(tokenAmount);
-
     
     // Update totals
     weiRaised = weiRaised.add(weiAmount);
@@ -261,15 +244,6 @@ contract Crowdsale is Haltable {
 
     // Tell us invest was success
     Invested(receiver, weiAmount, tokenAmount, customerId);
-  }
-
-  function getCurrentEthCap() public constant returns (uint) {
-    if (block.timestamp < startsAt) 
-      return 0;
-    uint timeSinceStart = block.timestamp.sub(startsAt);
-    uint currentPeriod = timeSinceStart.div(TIME_PERIOD_IN_SEC).add(1);
-    uint ethCap = baseEthCap.mul((2**currentPeriod).sub(1));
-    return ethCap;
   }
 
   /**
@@ -443,17 +417,7 @@ contract Crowdsale is Haltable {
     }
   }
 
-  /** 
-   * Set the base eth cap
-   */
-  function setBaseEthCap(uint _baseEthCap) onlyOwner {
-    if (_baseEthCap == 0) 
-      revert();
-    baseEthCap = _baseEthCap;
-    BaseEthCapChanged(baseEthCap);
-  }
-
-  /**
+   /**
    * Allow crowdsale owner to close early or extend the crowdsale.
    *
    * This is useful e.g. for a manual soft cap implementation:

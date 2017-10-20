@@ -87,25 +87,6 @@ contract('AllocatedCrowdsale', function (accounts) {
             });
         }
     });
-    it('should prevent an address contributing more than the cap in a single transaction', function () {
-        return crowdsale.addToWhitelist(accounts[1], true)
-            .then(() => crowdsale.getCurrentEthCap())
-            .then(cap => {
-                var amount = cap + 1;
-                return crowdsale.sendTransaction({ from: accounts[1], value: amount });
-            }).then(() => assert.fail('should not be allowed')).catch(assertJump);
-    });
-    it('should prevent an address contributing more than the cap in multiple transactions', function () {
-        return crowdsale.addToWhitelist(accounts[1], true)
-            .then(() => crowdsale.getCurrentEthCap())
-            .then(cap => {
-                var amount = cap - web3.toWei(1, 'ether');
-                return crowdsale.sendTransaction({ from: accounts[1], value: amount });
-            }).then(() => {
-                var amount = web3.toWei(2, 'ether');
-                return crowdsale.sendTransaction({ from: accounts[1], value: amount });
-            }).then(() => assert.fail('should not be allowed')).catch(assertJump);
-    });
 
     it('should have price of 15000 for 1ETH when ethToUsd is 300', function() {
         return pricing
