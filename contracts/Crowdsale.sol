@@ -193,10 +193,7 @@ contract Crowdsale is Haltable {
         revert();
       }
     } else if (getState() == State.Funding) {
-      //only whitelisted participants are allowed to take part in the ICO
-      if (!whitelist[receiver]) {
-        revert();
-      }
+
       // Retail participants can only come in when the crowdsale is running
       // pass
     } else {
