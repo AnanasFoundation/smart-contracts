@@ -30,6 +30,8 @@ module.exports = function (deployer, network) {
     const end = moment.utc('2017-10-31 18:00').toDate().getTime() / 1000;
     const min = 0;
     const beneficiary = '0x8e3e2Ae91926146a932acb242Fc8D3041dA97E73';
+    
+    // baseEthCap - not in use. I believe this is left as it is for constructor to work
     const baseEthCap = 15 * Math.pow(10,18);
     const ethToUsd = 300;
     deployer.deploy(AllocatedCrowdsale, token, pricing, wallet, start, end, min, beneficiary, baseEthCap, ethToUsd);
