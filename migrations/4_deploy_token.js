@@ -17,8 +17,8 @@ module.exports = function (deployer, network) {
     var owner = '0x8e3e2Ae91926146a932acb242Fc8D3041dA97E73';
     var name = 'Anacoin';
     var symbol = 'ANAT';
-    var totalSupply = 1 * Math.pow(10,9) * Math.pow(10,18);
-    var decimals = 18;
+    var totalSupply = 1 * Math.pow(10,9) * Math.pow(10,8);
+    var decimals = 8;
     deployer.deploy(CentrallyIssuedToken, owner, name, symbol, totalSupply, decimals);
   }
 };

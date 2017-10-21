@@ -26,7 +26,9 @@ module.exports = function (deployer, network) {
             Promise.all([CentrallyIssuedToken.deployed(), AllocatedCrowdsale.deployed()]).then(results => {
                 var token = results[0];
                 var crowdsale = results[1];
-                token.approve(AllocatedCrowdsale.address, 1 * Math.pow(10, 9) * Math.pow(10, 18));
+                // Limit crowdsale to 150,000,000 i.e 15%
+                //token.approve(AllocatedCrowdsale.address, 1 * Math.pow(10, 9) * Math.pow(10, 18));
+                token.approve(AllocatedCrowdsale.address, 150 * Math.pow(10, 6) * Math.pow(10, 8));
                 token.setTransferAgent(MultiSigWallet.address, true);
                 token.setTransferAgent(AllocatedCrowdsale.address, true);
                 token.setTransferAgent(DefaultFinalizeAgent.address, true);
