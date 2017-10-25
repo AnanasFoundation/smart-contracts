@@ -6,14 +6,14 @@ module.exports = function (deployer, network) {
   }
   if (network == 'ropsten') {
     //account1
-    //password = p@ssw0rd123
-    //private key = aa1136bbb0d606cd96ea94753ca416b0940399c57aa1d66fd6869e9f4b7f3edd
-    //address = 0x4F0A6c734AE57998b02aA9f32674Fa5A37988De6
+    //password = AnanasFoundation1!
+    //private key = 3fc4e6ac0877097a3b8eb6d89bc47a5ce23f19feb7ba9fc6a7d1e8b5df14cbd7
+    //address = 0x5fE252f26e381340c8b5bBa9DFd91658d2F2D1E0
 
     //account2
-    //password = p@ssw0rd123
-    //private key = d6741ef2d9807f0ad674c09976b59d12381323b5e7c5af0a4afda8a3281e1dfb
-    //address = 0xDEE8ae658dcfbd41E0a03150D4370B3921F96870
-    deployer.deploy(MultiSigWallet, ['0x4F0A6c734AE57998b02aA9f32674Fa5A37988De6', '0xDEE8ae658dcfbd41E0a03150D4370B3921F96870'], 2);
+    //password = AnanasFoundation2!
+    //private key = a455f1883f0ebc33fb1e3cd016a1046d42c5dc7453e266c3514d207361aae364
+    //address = 0x930F4c36d86B2Eeac79fB225a3EC0B45f350f7E2
+    deployer.deploy(MultiSigWallet, ['0x5fE252f26e381340c8b5bBa9DFd91658d2F2D1E0', '0x930F4c36d86B2Eeac79fB225a3EC0B45f350f7E2'], 2);
   }
 };

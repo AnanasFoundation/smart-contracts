@@ -30,7 +30,7 @@ module.exports = function (deployer, network) {
                 token.setTransferAgent(MultiSigWallet.address, true);
                 token.setTransferAgent(AllocatedCrowdsale.address, true);
                 token.setTransferAgent(DefaultFinalizeAgent.address, true);
-                token.setTransferAgent('0x8e3e2Ae91926146a932acb242Fc8D3041dA97E73', true);
+                token.setTransferAgent('0x6c43Fe4495d345F0C65e9a26382a1cE51861e569', true);
                 token.setReleaseAgent(DefaultFinalizeAgent.address);
                 token.setUpgradeMaster(MultiSigWallet.address);
                 crowdsale.setFinalizeAgent(DefaultFinalizeAgent.address);

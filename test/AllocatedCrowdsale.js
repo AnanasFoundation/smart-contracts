@@ -61,16 +61,7 @@ contract('AllocatedCrowdsale', function (accounts) {
             return assert.equal(allowance, CROWDSALE_SUPPLY, 'There were not 330 million tokens authorized for transfer by the crowdsale');
         });
     });
-    it('should work with the whitelist', function () {
-        return crowdsale.addToWhitelist(accounts[5], true).then(() => crowdsale.sendTransaction({ from: accounts[5], value: 1000000000000 })).then(() => {
-            assert.equal(true, true);
-        });
-    });
-    it('should fail if account not in whitelist', function () {
-        return crowdsale.sendTransaction({ from: accounts[5], value: 1000000000000 }).then(() => {
-            assert.fail('Should have failed');
-        }).catch(assertJump);
-    });
+    
     it('should forward all funds to the wallet', function () {
         return crowdsale.addToWhitelist(accounts[5], true).then(() => crowdsale.sendTransaction({ from: accounts[5], value: 1000000000000 })).then(() => {
             return getBalance(wallet.address);
